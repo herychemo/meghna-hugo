@@ -7,10 +7,21 @@
             <i class="{{ . }}"></i>
         </div>
         {{ end }}
-       {{with .Site.Params.banner.heading}} <h1>{{ . }}</h1>{{ end }}
-       {{with .Site.Params.banner.content}} <p>{{ . }}</p> {{ end }}
-       {{ if .Site.Params.banner.btn}}
-        <a data-scroll href="{{ .Site.Params.banner.btnURL}}" class="btn btn-transparent">{{ .Site.Params.banner.btnText}}</a>
+
+        {{ with .Site.Params.banner.heading }}
+        {{ with i18n . }} <h1>{{ . }}</h1> {{ else }} <h1>{{ . }}</h1> {{ end }}
+        {{ end }}
+
+        {{ with .Site.Params.banner.content }}
+        {{ with i18n . }} <p>{{ . }}</p> {{ else }} <p>{{ . }}</p> {{ end }}
+        {{ end }}
+
+        {{ if .Site.Params.banner.btn}}
+        <a data-scroll href="{{ .Site.Params.banner.btnURL}}" class="btn btn-transparent">
+            {{ with .Site.Params.banner.btnText }}
+            {{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
+            {{ end }}
+        </a>
         {{ end }}
     </div>
 </section>

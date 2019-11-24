@@ -6,7 +6,17 @@
             <div class="col-xl-12">
                 {{"<!-- section title -->" | safeHTML}}
                 <div class="title text-center">
-                    <h2> {{ with .Site.Data.portfolio.heading }} {{ . }} {{ end }} <span class="color">{{ with .Site.Data.portfolio.headingSpan }} {{ . }} {{ end }}</span></h2>
+                    <h2>
+                        {{ with .Site.Data.portfolio.heading }}
+                        {{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
+                        {{ end }}
+
+                        <span class="color">
+                            {{ with .Site.Data.portfolio.headingSpan }}
+                            {{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
+                            {{ end }}
+                        </span>
+                    </h2>
                     <div class="border-meghna"></div>
                 </div>
                 {{"<!-- /section title -->" | safeHTML}}
@@ -15,9 +25,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="portfolio-filter">
-                    <button type="button" data-filter="all">All</button>
+                    <button type="button" data-filter="all">{{ i18n "all" }}</button>
                     {{ range .Site.Data.portfolio.filterList }}
-                    <button type="button" data-filter="{{ .filterType }}">{{ .filterTitle }}</button>
+                    <button type="button" data-filter="{{ .filterType }}">{{ i18n .filterTitle }}</button>
                     {{ end }}
                 </div>
             </div>
