@@ -1,9 +1,10 @@
 {{"<!-- Fixed Navigation -->" | safeHTML}}
 <nav id="navigation" class="navbar navbar-expand-lg navigation sticky-top">
         <div class="container">
+                {{ $pageLang := .Page.Lang}}
 
                 {{"<!-- logo -->" | safeHTML}}
-                <a class="navbar-brand logo" href="{{ .Site.BaseURL | absURL }}">
+                <a class="navbar-brand logo" href="{{ .Site.BaseURL | absURL }}{{ $pageLang }}/">
                         <img src="{{ .Site.Params.logo | absURL }}" alt="Logo" />
                         <span class="pl-2 font-weight-bold">{{ .Site.Title }}</span>
                 </a>
@@ -36,8 +37,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                         {{ partial "translations-navlist.html" . }}
-
-                        {{ $pageLang := .Page.Lang}}
 
                         <ul class="navbar-nav ml-auto navigation-menu">
                                 <li class="nav-item"><a class="nav-link" data-scroll href="{{ $.Site.BaseURL }}{{ $pageLang }}/#body">
