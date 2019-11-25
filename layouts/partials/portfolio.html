@@ -35,14 +35,20 @@
         <div class="row filtr-container">
             {{"<!-- portfolio item -->" | safeHTML}}
             {{ range .Site.Data.portfolio.portfolioItem }}
+
+            {{ $theUrl := "#" }}
+            {{ if .contentRef }}    {{ $theUrl = .contentRef }}
+            {{ else if .URL }}      {{ $theUrl = .URL | absURL }}
+            {{ end }}
             <div class="col-lg-4 filtr-item" data-category="{{ .types }}">
                 <div class="portfolio-block mb-4">
                     <img class="img-fluid" src="{{ .image | absURL}}" alt="work-image">
                     <div class="caption">
-                        <a class="search-icon image-popup" data-effect="mfp-with-zoom" href="{{ .image | absURL}}" data-lightbox="image-1">
+                        <a class="search-icon image-popup" data-effect="mfp-with-zoom"
+                           href="{{ .image | absURL}}" data-lightbox="image-1">
                             <i class="{{ .icon }}"></i>
                         </a>
-                        <h4><a href="{{ .URL | absURL }}">{{ .title }}</a></h4>
+                        <h4><a href="{{ $theUrl }}">{{ .title }}</a></h4>
                         <p>{{ .description }}</p>
                     </div>
                 </div>

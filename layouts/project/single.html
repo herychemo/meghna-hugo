@@ -1,0 +1,80 @@
+{{ define "main" }}
+
+{{ partial "navigation.html" . }}
+
+<section class="section">
+    <div class="container">
+
+        {{ $theDate := .Date }}
+        {{ $content := .Content }}
+
+        {{ range first 1 (where .Site.Data.portfolio.portfolioItem "id" "eq" .Params.project_id ) }}
+
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <h1>{{ .title }}</h1>
+                <ul class="list-inline mb-50">
+                    <li class="list-inline-item">{{ dateFormat "Monday, Jan 2, 2006" $theDate }}</li>
+                </ul>
+                {{ with .image }}<img class="img-fluid mb-50" src="{{ . | absURL }}" alt="blog-image">{{ end }}
+            </div>
+
+            <div class="col-lg-8 offset-lg-2">
+                <div class="post-single-content">
+                    <!-- Content from Markdown -->
+                    {{ $content }}
+                </div>
+            </div>
+
+            <div class="col-lg-8 offset-lg-2">
+                {{ .description }}
+
+
+                <div id="carousel-container" class="mt-2 d-block">
+                    <div id="local-carousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+
+                            {{ range $index, $element := .images }}
+                            {{ $is_first := eq $index 0 }}
+                            {{ $dClass := "" }} {{ if $is_first }} {{ $dClass = "active" }} {{ end }}
+                            <li data-target="#local-carousel" data-slide-to="{{ $index }}" class="{{ $dClass }}"></li>
+                            {{ end }}
+
+                        </ol>
+                        <div class="carousel-inner">
+
+                            {{ range $index, $element := .images }}
+                            {{ $is_first := eq $index 0 }}
+                            {{ $dClass := "" }} {{ if $is_first }} {{ $dClass = "active" }} {{ end }}
+                            <div class="carousel-item {{ $dClass }}">
+                                <img class="d-block w-100" src="{{ .src | absURL }}" alt="{{ .title }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ .title }}</h5>
+                                    <p>{{ .desc }}</p>
+                                </div>
+                            </div>
+                            {{ end }}
+
+                        </div>
+                        <a class="carousel-control-prev" href="#local-carousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#local-carousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        {{ end }}
+
+    </div>
+</section>
+
+{{ end }}
