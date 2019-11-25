@@ -1,0 +1,6 @@
+
+{{ $val := .val }}
+
+{{ with $val }}
+{{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
+{{ end }}

@@ -1,0 +1,10 @@
+
+{{ if .IsTranslated }}
+<ul class="navbar-nav mr-auto navigation-menu">
+    {{ range .Translations }}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ .Permalink }}">{{ .Lang }}</a>
+    </li>
+    {{ end }}
+</ul>
+{{ end }}

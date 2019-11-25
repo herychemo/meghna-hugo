@@ -7,14 +7,10 @@
                 {{"<!-- section title -->" | safeHTML}}
                 <div class="title text-center">
                     <h2>
-                        {{ with .Site.Data.portfolio.heading }}
-                        {{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
-                        {{ end }}
+                        {{ partial "i18n_if_exists" (dict "val" .Site.Data.portfolio.heading) }}
 
                         <span class="color">
-                            {{ with .Site.Data.portfolio.headingSpan }}
-                            {{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
-                            {{ end }}
+                            {{ partial "i18n_if_exists" (dict "val" .Site.Data.portfolio.headingSpan) }}
                         </span>
                     </h2>
                     <div class="border-meghna"></div>
