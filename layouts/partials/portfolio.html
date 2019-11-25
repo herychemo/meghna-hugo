@@ -44,8 +44,12 @@
                            href="{{ .image | absURL}}" data-lightbox="image-1">
                             <i class="{{ .icon }}"></i>
                         </a>
-                        <h4><a href="{{ $theUrl }}">{{ .title }}</a></h4>
-                        <p>{{ .description }}</p>
+                        <h4><a href="{{ $theUrl }}">
+                            {{ partial "i18n_if_exists" (dict "val" .title) }}
+                        </a></h4>
+                        <p>
+                            {{ partial "i18n_if_exists" (dict "val" .description) }}
+                        </p>
                     </div>
                 </div>
             </div>

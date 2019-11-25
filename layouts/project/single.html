@@ -7,12 +7,15 @@
 
         {{ $theDate := .Date }}
         {{ $content := .Content }}
+        {{ $project_url := .Params.project_url }}
 
         {{ range first 1 (where .Site.Data.portfolio.portfolioItem "id" "eq" .Params.project_id ) }}
 
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-center">
-                <h1>{{ .title }}</h1>
+                <h1>
+                    {{ partial "i18n_if_exists" (dict "val" .title) }}
+                </h1>
                 <ul class="list-inline mb-50">
                     <li class="list-inline-item">{{ dateFormat "Monday, Jan 2, 2006" $theDate }}</li>
                 </ul>
@@ -22,7 +25,16 @@
             <div class="col-lg-8 offset-lg-2">
                 <div class="post-single-content">
 
-                    <p>{{ .description }}</p>
+                    <p>
+                        {{ partial "i18n_if_exists" (dict "val" .description) }}
+                    </p>
+
+                    {{ with $project_url }}
+                    <p>
+                        <b>{{ i18n "project-url" }}: </b>
+                        <a target="_blank" href="{{ . }}">{{ . }}</a>
+                    </p>
+                    {{ end }}
 
                     <!-- Content from Markdown AKA Long description-->
                     <h3>{{ i18n "description" }}: </h3>
