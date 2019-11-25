@@ -22,9 +22,13 @@
                         {{ partial "translations-navlist.html" . }}
 
                         <ul class="navbar-nav ml-auto navigation-menu">
-                                <li class="nav-item"><a class="nav-link" data-scroll href="#body">{{ with $.Site.Params.home }}{{ . }}{{ end }}</a></li>
+                                <li class="nav-item"><a class="nav-link" data-scroll href="#body">
+                                        {{ partial "i18n_if_exists" (dict "val" $.Site.Params.home) }}
+                                </a></li>
                                 {{ range $.Site.Menus.nav }}
-                                <li class="nav-item"><a class="nav-link" data-scroll href="#{{ .URL }}">{{ .Name }}</a></li>
+                                <li class="nav-item"><a class="nav-link" data-scroll href="#{{ .URL }}">
+                                        {{ partial "i18n_if_exists" (dict "val" .Name) }}
+                                </a></li>
                                 {{ end }}
                         </ul>
                 </div>
@@ -33,10 +37,16 @@
 
                         {{ partial "translations-navlist.html" . }}
 
+                        {{ $pageLang := .Page.Lang}}
+
                         <ul class="navbar-nav ml-auto navigation-menu">
-                                <li class="nav-item"><a class="nav-link" data-scroll href="{{ $.Site.BaseURL }}#body">{{ with $.Site.Params.home }}{{ . }}{{ end }}</a></li>
+                                <li class="nav-item"><a class="nav-link" data-scroll href="{{ $.Site.BaseURL }}{{ $pageLang }}/#body">
+                                        {{ partial "i18n_if_exists" (dict "val" $.Site.Params.home) }}
+                                </a></li>
                                 {{ range $.Site.Menus.nav }}
-                                <li class="nav-item"><a class="nav-link" data-scroll href="{{ $.Site.BaseURL }}#{{ .URL }}">{{ .Name }}</a></li>
+                                <li class="nav-item"><a class="nav-link" data-scroll href="{{ $.Site.BaseURL }}{{ $pageLang }}/#{{ .URL }}">
+                                        {{ partial "i18n_if_exists" (dict "val" .Name) }}
+                                </a></li>
                                 {{ end }}
                         </ul>
                 </div>
