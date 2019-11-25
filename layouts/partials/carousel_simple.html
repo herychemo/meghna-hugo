@@ -1,0 +1,38 @@
+
+{{ $id := .id }}
+<div id="carousel-container" class="mt-2 d-block">
+    <div id="{{ $id }}" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+
+            {{ range $index, $element := .images }}
+            {{ $is_first := eq $index 0 }}
+            {{ $dClass := "" }} {{ if $is_first }} {{ $dClass = "active" }} {{ end }}
+            <li data-target="#{{ $id }}" data-slide-to="{{ $index }}" class="{{ $dClass }}"></li>
+            {{ end }}
+
+        </ol>
+        <div class="carousel-inner">
+
+            {{ range $index, $element := .images }}
+            {{ $is_first := eq $index 0 }}
+            {{ $dClass := "" }} {{ if $is_first }} {{ $dClass = "active" }} {{ end }}
+            <div class="carousel-item {{ $dClass }}">
+                <img class="d-block w-100" src="{{ .src | absURL }}" alt="{{ .title }}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ .title }}</h5>
+                    <p>{{ .desc }}</p>
+                </div>
+            </div>
+            {{ end }}
+
+        </div>
+        <a class="carousel-control-prev" href="#{{ $id }}" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#{{ $id }}" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
