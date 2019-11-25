@@ -21,14 +21,16 @@
 
             <div class="col-lg-8 offset-lg-2">
                 <div class="post-single-content">
-                    <!-- Content from Markdown -->
+
+                    <p>{{ .description }}</p>
+
+                    <!-- Content from Markdown AKA Long description-->
+                    <h3>{{ i18n "description" }}: </h3>
                     {{ $content }}
                 </div>
             </div>
 
             <div class="col-lg-8 offset-lg-2">
-                <h3>{{ i18n "description" }}: </h3>
-                <p>{{ .description }}</p>
 
                 {{ if ( gt (len .images) 0 ) }}
                 <h3>{{ i18n "gallery" }}: </h3>
