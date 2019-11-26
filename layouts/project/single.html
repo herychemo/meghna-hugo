@@ -7,7 +7,7 @@
 
         {{ $theDate := .Date }}
         {{ $content := .Content }}
-        {{ $project_url := .Params.project_url }}
+        {{ $project_urls := .Params.project_urls }}
 
         {{ range first 1 (where .Site.Data.portfolio.portfolioItem "id" "eq" .Params.project_id ) }}
 
@@ -29,11 +29,15 @@
                         {{ partial "i18n_if_exists" (dict "val" .description) }}
                     </p>
 
-                    {{ with $project_url }}
-                    <p>
-                        <b>{{ i18n "project-url" }}: </b>
-                        <a target="_blank" href="{{ . }}">{{ . }}</a>
-                    </p>
+                    {{ with $project_urls }}
+                    <b>{{ i18n "project-urls" }}: </b>
+                    <ul>
+                    {{ range . }}
+                        <li>
+                            <a target="_blank" href="{{ . }}">{{ . }}</a>
+                        </li>
+                    {{ end }}
+                    </ul>
                     {{ end }}
 
                     <!-- Content from Markdown AKA Long description-->
