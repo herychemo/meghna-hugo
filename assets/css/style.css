@@ -49,6 +49,14 @@ pre {
   background-color: rgba(15, 15, 15, 0.45);
 }
 
+.carousel-control-next-icon, .carousel-control-prev-icon {
+  background-color: rgba(15, 15, 15, 0.75);
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border: 0 solid #000000;
+}
+
 /*=================================================================
   Basic Setup
 ==================================================================*/

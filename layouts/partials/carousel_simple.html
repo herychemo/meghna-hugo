@@ -19,8 +19,12 @@
             <div class="carousel-item {{ $dClass }}">
                 <img class="d-block w-100" src="{{ .src | absURL }}" alt="{{ .title }}">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>{{ .title }}</h5>
-                    <p>{{ .desc }}</p>
+                    <h5>
+                        {{ partial "i18n_if_exists" (dict "val" .title) }}
+                    </h5>
+                    <p>
+                        {{ partial "i18n_if_exists" (dict "val" .desc) }}
+                    </p>
                 </div>
             </div>
             {{ end }}
