@@ -30,12 +30,14 @@
         </div>
         <div class="row filtr-container">
             {{"<!-- portfolio item -->" | safeHTML}}
-            {{ range .Site.Data.portfolio.portfolioItem }}
+            {{ $draftsEnabled := .Site.BuildDrafts }}
+            {{ range sort .Site.Data.portfolio.portfolioItem "weight" "desc" }}
 
             {{ $theUrl := "#" }}
             {{ if .contentRef }}    {{ $theUrl = .contentRef }}
             {{ else if .URL }}      {{ $theUrl = .URL | absURL }}
             {{ end }}
+            {{ if or (not .draft) (and .draft $draftsEnabled ) }}
             <div class="col-lg-4 filtr-item" data-category="{{ .types }}">
                 <div class="portfolio-block mb-4">
                     <img class="img-fluid" src="{{ .image | absURL}}" alt="work-image">
@@ -53,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            {{ end }}
             {{ end }}
         </div>
     </div>
