@@ -2,5 +2,5 @@
 {{ $val := .val }}
 
 {{ with $val }}
-{{ with i18n . }} {{ . }} {{ else }} {{ . }} {{ end }}
+{{ with i18n . }} {{ . | markdownify }} {{ else }} {{ . | markdownify }} {{ end }}
 {{ end }}

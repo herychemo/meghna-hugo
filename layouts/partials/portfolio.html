@@ -1,64 +1,79 @@
-{{ if .Site.Data.portfolio.enable}}
+{{ $data := index .Site.Data .Site.Language.Lang }}
+
+{{ if $data.portfolio.portfolio.enable }}
+{{ with $data.portfolio.portfolio }}
 {{"<!-- Portfolio Section -->" | safeHTML}}
 <section class="portfolio section" id="portfolio">
-    <div class="container">
-        <div class="row ">
-            <div class="col-xl-12">
-                {{"<!-- section title -->" | safeHTML}}
-                <div class="title text-center">
-                    <h2>
-                        {{ partial "i18n_if_exists" (dict "val" .Site.Data.portfolio.heading) }}
-
+	<div class="container">
+		<div class="row ">
+			<div class="col-xl-12">
+				{{"<!-- section title -->" | safeHTML}}
+				<div class="title text-center">
+					<h2>
+                        {{ with .title }}
+                        {{ partial "i18n_if_exists" (dict "val" index (split . " ") 0) }}
+                        {{ end }}
                         <span class="color">
-                            {{ partial "i18n_if_exists" (dict "val" .Site.Data.portfolio.headingSpan) }}
+							{{ with .title }}
+                            {{ partial "i18n_if_exists" (dict "val" index (split . " ") 1) }}
+                            {{ end }}
                         </span>
                     </h2>
-                    <div class="border-meghna"></div>
-                </div>
-                {{"<!-- /section title -->" | safeHTML}}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="portfolio-filter">
-                    <button type="button" data-filter="all">{{ i18n "all" }}</button>
-                    {{ range .Site.Data.portfolio.filterList }}
-                    <button type="button" data-filter="{{ .filterType }}">{{ i18n .filterTitle }}</button>
-                    {{ end }}
-                </div>
-            </div>
-        </div>
-        <div class="row filtr-container">
-            {{"<!-- portfolio item -->" | safeHTML}}
+					<div class="border-meghna"></div>
+				</div>
+				{{"<!-- /section title -->" | safeHTML}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="btn-group portfolio-filter btn-group-toggle justify-content-center d-flex flex-wrap"
+					data-toggle="buttons">
+					<label class="btn active">
+						<input type="radio" name="shuffle-filter" value="all" checked="checked" />{{ i18n "all" }}
+					</label>
+					{{ range .filter_List }}
+					<label class="btn">
+						<input type="radio" name="shuffle-filter" value="{{.filter_Type}}" />
+                        {{ partial "i18n_if_exists" (dict "val" .filter_Title) }}
+					</label>
+					{{ end }}
+				</div>
+			</div>
+		</div>
+
+		<div class="row shuffle-wrapper">
+			{{"<!-- portfolio item -->" | safeHTML}}
             {{ $draftsEnabled := .Site.BuildDrafts }}
-            {{ range sort .Site.Data.portfolio.portfolioItem "weight" "desc" }}
+
+
+			{{ range sort .portfolio_Item "weight" "desc" }}
 
             {{ $theUrl := "#" }}
             {{ if .contentRef }}    {{ $theUrl = .contentRef }}
             {{ else if .URL }}      {{ $theUrl = .URL | absURL }}
             {{ end }}
+
             {{ if or (not .draft) (and .draft $draftsEnabled ) }}
-            <div class="col-lg-4 filtr-item" data-category="{{ .types }}">
-                <div class="portfolio-block mb-4">
-                    <img class="img-fluid" src="{{ .image | absURL}}" alt="work-image">
-                    <div class="caption">
-                        <a class="search-icon image-popup" data-effect="mfp-with-zoom"
-                           href="{{ .image | absURL}}" data-lightbox="image-1">
-                            <i class="{{ .icon }}"></i>
-                        </a>
-                        <h4><a href="{{ $theUrl }}">
+			<div class="col-lg-4 shuffle-item"
+				data-groups="[{{range $index, $element:= .types }}{{if eq $index 0}} {{else}},{{end}}&quot;{{.}}&quot;{{ end }}]">
+				<div class="portfolio-block mb-4">
+					<img class="img-fluid" src="{{ .image | relURL }}" alt="work-image">
+					<div class="caption">
+						<a class="search-icon image-popup" data-effect="mfp-with-zoom" href="{{ .image | relURL }}"
+							data-lightbox="image-1">
+							<i class="ti-search"></i>
+						</a>
+						<h4 class="mt-3"><a href="{{ $theUrl }}">
                             {{ partial "i18n_if_exists" (dict "val" .title) }}
                         </a></h4>
-                        <p>
-                            {{ partial "i18n_if_exists" (dict "val" .description) }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            {{ end }}
-            {{ end }}
-        </div>
-    </div>
+						<p>{{ partial "i18n_if_exists" (dict "val" .description) }}</p>
+					</div>
+				</div>
+			</div>
+			{{ end }} {{ end }}
+		</div>
+	</div>
 </section>
 {{"<!-- /Portfolio -->" | safeHTML}}
+{{ end }}
 {{ end }}
