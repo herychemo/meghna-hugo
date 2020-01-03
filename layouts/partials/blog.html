@@ -1,4 +1,5 @@
-{{ if gt .Site.RegularPages 0}}
+{{ if gt (where .Site.RegularPages "Section" "blog") 0}}
+
 {{"<!-- Start Blog Section -->" | safeHTML}}
 <section id="blog" class="section">
 	<div class="container">
@@ -13,7 +14,7 @@
 			</div>
 			{{"<!-- /section title -->" | safeHTML}}
 
-			{{ range first 3 .Site.RegularPages }}
+			{{ range first 3 (where .Site.RegularPages "Section" "blog") }}
 			{{"<!-- single blog post -->" | safeHTML}}
 			<article class="col-lg-4 col-md-6 col-12 clearfix wow fadeInUp" data-wow-duration="500ms">
 				<div class="post-block">

@@ -2,14 +2,19 @@
 
 {{ partial "navigation.html" . }}
 
+{{ $page := . }}
+{{ $data := index .Site.Data .Site.Language.Lang }}
+{{ if $data.portfolio.portfolio.enable }}
+{{ with $data.portfolio.portfolio }}
+
 <section class="section">
     <div class="container">
 
-        {{ $theDate := .Date }}
-        {{ $content := .Content }}
-        {{ $project_urls := .Params.project_urls }}
+        {{ $theDate := $page.Date }}
+        {{ $content := $page.Content }}
+        {{ $project_urls := $page.Params.project_urls }}
 
-        {{ range first 1 (where .Site.Data.portfolio.portfolioItem "id" "eq" .Params.project_id ) }}
+        {{ range first 1 (where .portfolio_Item "id" "eq" $page.Params.project_id ) }}
 
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-center">
@@ -26,7 +31,7 @@
                 <div class="post-single-content">
 
                     <p>
-                        {{ partial "i18n_if_exists" (dict "val" .description) }}
+                        {{ partial "i18n_if_exists" (dict "val" .content) }}
                     </p>
 
                     {{ with $project_urls }}
@@ -60,5 +65,7 @@
 
     </div>
 </section>
+{{ end }}
+{{ end }}
 
 {{ end }}
